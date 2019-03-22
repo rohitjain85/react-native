@@ -248,7 +248,7 @@ namespace facebook { namespace v8runtime {
       // V8 didn't provide any extra information about this error; just
       // throw the exception.
       std::string errorMessage{ "<Unknown exception>" };
-      Log(errorMessage, 3 /*logLevel*/);
+      Log(errorMessage, 3 /*logLevel error*/);
       throw jsi::JSError(*this, errorMessage);
     }
     else {
@@ -286,7 +286,7 @@ namespace facebook { namespace v8runtime {
       }
 
       std::string errorMessage{ sstr.str() };
-      Log(errorMessage, 3 /*logLevel*/);
+      Log(errorMessage, 3 /*logLevel error*/);
       throw jsi::JSError(*this, errorMessage);
     }
   }
