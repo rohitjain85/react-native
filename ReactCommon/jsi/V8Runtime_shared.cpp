@@ -239,12 +239,6 @@ namespace facebook { namespace v8runtime {
     }
   }
 
-  void  V8Runtime::Log(const std::string& message, const unsigned int logLevel) {
-    if (logger_) {
-      (*logger_)("V8Runtime:: " + message, logLevel);
-    }
-  }
-
   void V8Runtime::ReportException(v8::TryCatch* try_catch) {
     _ISOLATE_CONTEXT_ENTER
     v8::String::Utf8Value exception(isolate, try_catch->Exception());
