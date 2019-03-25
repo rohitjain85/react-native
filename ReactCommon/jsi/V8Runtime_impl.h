@@ -374,7 +374,12 @@ namespace facebook { namespace v8runtime {
     bool ExecuteString(v8::Local<v8::String> source, const jsi::Buffer* cache, v8::Local<v8::Value> name, bool report_exceptions);
     bool ExecuteString(const v8::Local<v8::String>& source, const std::string& sourceURL);
 
-    void Log(const std::string& message, const unsigned int logLevel);
+    void Log(const std::string& message, const unsigned int logLevel) {
+      if (logger_) {
+        (*logger_)("V8Runtime:: " + message, logLevel);
+      }
+    }
+
     void ReportException(v8::TryCatch* try_catch);
 
     v8::Isolate* GetIsolate() const { return isolate_; }
