@@ -14,8 +14,7 @@ LOCAL_SRC_FILES:= \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
 
-LOCAL_CFLAGS += -fno-omit-frame-pointer
-LOCAL_CXXFLAGS+= -frtti -fexceptions
+LOCAL_CFLAGS += -fexceptions -fno-omit-frame-pointer -frtti -Wno-sign-compare
 
 FOLLY_FLAGS := -DFOLLY_NO_CONFIG=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -DFOLLY_HAVE_MEMRCHR=1
 LOCAL_CFLAGS += $(FOLLY_FLAGS)

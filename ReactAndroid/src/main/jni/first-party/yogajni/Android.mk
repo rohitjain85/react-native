@@ -1,3 +1,8 @@
+# Copyright (c) Facebook, Inc. and its affiliates.
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -9,8 +14,7 @@ LOCAL_SRC_FILES := \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/jni
 
-LOCAL_CFLAGS += -fvisibility=hidden -O3
-LOCAL_CXXFLAGS += -frtti -fexceptions
+LOCAL_CFLAGS += -fvisibility=hidden -frtti -fexceptions -O3
 
 LOCAL_LDLIBS += -landroid -llog
 LOCAL_STATIC_LIBRARIES := libyogacore

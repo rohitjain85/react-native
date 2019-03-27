@@ -14,7 +14,7 @@ LOCAL_SRC_FILES := \
   JSBigString.cpp \
   JSBundleType.cpp \
   JSDeltaBundleClient.cpp \
-	JSExecutor.cpp \
+  JSExecutor.cpp \
   JSIndexedRAMBundle.cpp \
   MethodCall.cpp \
   ModuleRegistry.cpp \
@@ -29,8 +29,9 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_C_INCLUDES)
 LOCAL_CFLAGS := \
   -DLOG_TAG=\"ReactNative\"
 
-LOCAL_SHARED_LIBRARIES := libfb libfolly_json libglog 
-LOCAL_CXXFLAGS += -fexceptions -frtti
+LOCAL_CFLAGS += -fexceptions -frtti
+
+LOCAL_SHARED_LIBRARIES := libfb libfolly_json libglog
 
 LOCAL_V8_FILES := \
     File.cpp \
