@@ -1,3 +1,8 @@
+# Copyright (c) Facebook, Inc. and its affiliates.
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -31,7 +36,8 @@ LOCAL_CFLAGS := \
 
 LOCAL_CFLAGS += -fexceptions -frtti
 
-LOCAL_SHARED_LIBRARIES := libfb libfolly_json libglog
+LOCAL_STATIC_LIBRARIES := boost
+LOCAL_SHARED_LIBRARIES := libfb libfolly_json libglog 
 
 LOCAL_V8_FILES := \
     File.cpp \
@@ -59,6 +65,7 @@ else
   LOCAL_STATIC_LIBRARIES := jschelpers
   LOCAL_SHARED_LIBRARIES += libjsc
 endif
+
 
 include $(BUILD_STATIC_LIBRARY)
 
