@@ -287,6 +287,7 @@ namespace facebook { namespace v8runtime {
 
       std::string errorMessage{ sstr.str() };
       Log(errorMessage, 3 /*logLevel error*/);
+
       throw jsi::JSError(*this, errorMessage);
     }
   }
