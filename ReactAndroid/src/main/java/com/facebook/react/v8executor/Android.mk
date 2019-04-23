@@ -19,6 +19,3 @@ LOCAL_STATIC_LIBRARIES := libjsi libjsireact
 LOCAL_SHARED_LIBRARIES := libfolly_json libfb libreactnativejni
 
 include $(BUILD_SHARED_LIBRARY)
-
-
-include $(HERMES_PATH)/first-party/hermes-executor/src/main/java/com/facebook/hermes/reactexecutor/Android.mk

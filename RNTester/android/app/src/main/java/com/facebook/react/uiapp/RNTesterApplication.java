@@ -74,6 +74,7 @@ public class RNTesterApplication extends Application implements ReactApplication
       );
     }
 
+	/*
     @Override
     public JavaScriptExecutorFactory getJavaScriptExecutorFactory() {
       ReactMarker.addListener(new RNTesterReactMarker());
@@ -89,12 +90,12 @@ public class RNTesterApplication extends Application implements ReactApplication
       }
 
       return new V8ExecutorFactory(appName, deviceName, new V8ExecutorFactory.V8ConfigParams(jseCacheDirectoryPath, V8ExecutorFactory.V8ConfigParams.CacheType.CodeCache, false));
-    }
+    }*/
     
-    /*@Override
+    @Override
     protected JavaScriptExecutorFactory getJavaScriptExecutorFactory() {
       return new HermesExecutorFactory();
-    }*/
+    }
   };
 
   @Override
