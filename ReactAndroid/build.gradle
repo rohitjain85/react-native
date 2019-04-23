@@ -57,6 +57,17 @@ def isV8Enabled() {
     return true;
 }
 
+task prepareHermes() << {
+
+    def hermesAAR = new File("d:/HermesAAR/hermes/build/outputs/aar/android.aar")
+    def soFiles = zipTree(hermesAAR).matching({ it.include "**/*.so" })
+    copy {
+        from soFiles
+        from "d:/Hermes/hermes/first-party/libhermes/Android.mk"
+        into "$thirdPartyNdkDir/hermes"
+    }
+}
+
 // For GitHub CI - we use this task
 task downloadBoost(dependsOn: createNativeDepsDirectories, type: Download) {
     src "https://github.com/react-native-community/boost-for-react-native/releases/download/v${BOOST_VERSION.replace("_", ".")}-0/boost_${BOOST_VERSION}.tar.gz"
@@ -204,7 +215,7 @@ def getNdkBuildFullPath() {
     return ndkBuildFullPath
 }
 
-task buildReactNdkLib(dependsOn: [prepareBoost, prepareDoubleConversion, prepareFolly, prepareGlog, prepareJSC], type: Exec) {
+task buildReactNdkLib(dependsOn: [prepareBoost, prepareDoubleConversion, prepareFolly, prepareGlog, prepareJSC, prepareHermes], type: Exec) {
     inputs.file('src/main/jni/react')
     outputs.dir("$buildDir/react-ndk/all")
     commandLine getNdkBuildFullPath(),
@@ -270,10 +281,11 @@ android {
         jniLibs.srcDirs = ["$buildDir/react-ndk/exported", 'src/main/jni/third-party/jsc/jni']
         res.srcDirs = ['src/main/res/devsupport', 'src/main/res/shell', 'src/main/res/views/modal', 'src/main/res/views/uimanager']
         java {
-            srcDirs = ['src/main/java', 'src/main/libraries/soloader/java', 'src/main/jni/first-party/fb/jni/java']
+            srcDirs = ['src/main/java', 'src/main/libraries/soloader/java', 'src/main/jni/first-party/fb/jni/java', 'D:/Hermes/hermes/first-party/hermes-executor/src/main/java']
             exclude 'com/facebook/react/processing'
             exclude 'com/facebook/react/module/processing'
         }
+
     }
 
     tasks.withType(JavaCompile) {

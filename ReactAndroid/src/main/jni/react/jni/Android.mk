@@ -104,6 +104,7 @@ $(call import-module,privatedata)
 $(call import-module,fb)
 $(call import-module,fbgloginit)
 $(call import-module,folly)
+$(call import-module,hermes)
 ifeq ($(V8_ENABLED), 0)
   $(call import-module,jsc)
 endif
@@ -117,3 +118,4 @@ $(call import-module,jsiexecutor)
 
 include $(REACT_SRC_DIR)/jscexecutor/Android.mk
 include $(REACT_SRC_DIR)/v8executor/Android.mk
+#include D:/Hermes/hermes/first-party/libhermes/Android.mk

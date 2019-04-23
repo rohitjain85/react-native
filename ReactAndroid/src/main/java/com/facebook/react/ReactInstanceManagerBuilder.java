@@ -7,6 +7,8 @@ package com.facebook.react;
 
 import static com.facebook.react.modules.systeminfo.AndroidInfoHelpers.getFriendlyDeviceName;
 
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
+
 import android.app.Activity;
 import android.app.Application;
 import com.facebook.infer.annotation.Assertions;
@@ -270,7 +272,7 @@ public class ReactInstanceManagerBuilder {
         mCurrentActivity,
         mDefaultHardwareBackBtnHandler,
         mJavaScriptExecutorFactory == null
-            ? new JSCJavaScriptExecutorFactory(appName, deviceName)
+            ? new HermesExecutorFactory()
             : mJavaScriptExecutorFactory,
         (mJSBundleLoader == null && mJSBundleAssetUrl != null)
             ? JSBundleLoader.createAssetLoader(
