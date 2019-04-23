@@ -110,4 +110,4 @@ $(call import-module,jsiexecutor)
 
 include $(REACT_SRC_DIR)/jscexecutor/Android.mk
 include $(REACT_SRC_DIR)/v8executor/Android.mk
-#include D:/Hermes/hermes/first-party/libhermes/Android.mk
+include $(REACT_SRC_DIR)/../hermes/reactexecutor/Android.mk

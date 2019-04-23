@@ -24,6 +24,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 def customDownloadsDir = System.getenv("REACT_NATIVE_DOWNLOADS_DIR")
 def downloadsDir = customDownloadsDir ? new File(customDownloadsDir) : new File("$buildDir/downloads")
 def thirdPartyNdkDir = new File("$buildDir/third-party-ndk")
+def hermesWs = 'f:/hermes/'
 
 // You need to have following folders in this directory:
 //   - boost_1_63_0
@@ -44,9 +45,14 @@ def DoubleConversionPath = '../double-conversion'
 def FollyPath = '..'
 def GlogPath = '..'
 def JSCPath = '../jsc'
+<<<<<<< HEAD
 def V8Path = 'packages/Office.Google_V8.Android.7.0.276.32-v1'
 
+=======
+def V8Path = 'packages/Office.Google_V8.Android.7.0.276.32'
+>>>>>>> Bringing some hermes code
 def hasBoostNuget = file(BoostNugetPath).exists()
+
 
 task createNativeDepsDirectories {
     thirdPartyNdkDir.mkdirs()
@@ -57,13 +63,12 @@ def isV8Enabled() {
     return true;
 }
 
-task prepareHermes() << {
-
-    def hermesAAR = new File("d:/HermesAAR/hermes/build/outputs/aar/android.aar")
+task prepareHermes() {
+    def hermesAAR = new File("f:/HermesAAR/android.aar")
     def soFiles = zipTree(hermesAAR).matching({ it.include "**/*.so" })
     copy {
         from soFiles
-        from "d:/Hermes/hermes/first-party/libhermes/Android.mk"
+        from "src/main/jni/first-party/hermes/Android.mk"
         into "$thirdPartyNdkDir/hermes"
     }
 }
@@ -228,6 +233,7 @@ task buildReactNdkLib(dependsOn: [prepareBoost, prepareDoubleConversion, prepare
             "V8_NUGET_DIR=$projectDir/$V8Path",
             "REACT_COMMON_DIR=$projectDir/../ReactCommon",
             "REACT_SRC_DIR=$projectDir/src/main/java/com/facebook/react",
+            "HERMES_WS_DIR=$hermesWs",
             '-C', file('src/main/jni/react/jni').absolutePath,
             '--jobs', project.hasProperty("jobs") ? project.property("jobs") : Runtime.runtime.availableProcessors()
 }
