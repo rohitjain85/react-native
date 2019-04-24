@@ -60,7 +60,7 @@ def isV8Enabled() {
 }
 
 task prepareHermes() {
-    def hermesAAR = new File("f:/HermesAAR/android.aar")
+    def hermesAAR = new File("f:/HermesAAR/hermes-debug.aar")
     def soFiles = zipTree(hermesAAR).matching({ it.include "**/*.so" })
     copy {
         from soFiles
@@ -329,7 +329,7 @@ dependencies {
     api "com.facebook.fresco:imagepipeline-okhttp3:${FRESCO_VERSION}"
     api "com.facebook.soloader:soloader:${SO_LOADER_VERSION}"
     api 'com.google.code.findbugs:jsr305:3.0.2'
-    api "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
+    api "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}" 
     api "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP_VERSION}"
     api 'com.squareup.okio:okio:1.15.0'
     if (!isV8Enabled()) {
