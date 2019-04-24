@@ -116,6 +116,6 @@ $(call import-module,jsiexecutor)
 #   Why doesn't this import-module call generate a jscexecutor.so file?
 # $(call import-module,jscexecutor)
 
-include $(REACT_SRC_DIR)/jscexecutor/Android.mk
-include $(REACT_SRC_DIR)/v8executor/Android.mk
+#include $(REACT_SRC_DIR)/jscexecutor/Android.mk
+#include $(REACT_SRC_DIR)/v8executor/Android.mk
 include $(REACT_SRC_DIR)/../hermes/reactexecutor/Android.mk
