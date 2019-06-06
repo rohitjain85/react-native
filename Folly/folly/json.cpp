@@ -666,7 +666,7 @@ size_t firstEscapableInWord(T s, const serialization_opts& opts) {
           (i == 0 ? uint64_t(-1) << 32 : ~0UL);
       while (bitmap) {
         auto bit = folly::findFirstSet(bitmap);
-        needsEscape |= isChar(offset + bit - 1);
+        needsEscape |= isChar(static_cast<uint8_t>(offset + bit - 1));
         bitmap &= bitmap - 1;
       }
     }
@@ -712,7 +712,10 @@ void escapeStringImpl(
         word = folly::partialLoadUnaligned<uint64_t>(firstEsc, avail);
       }
       auto prefix = firstEscapableInWord<EnableExtraAsciiEscapes>(word, opts);
+FOLLY_PUSH_WARNING
+FOLLY_MSVC_DISABLE_WARNING(4018) // signed/unsigned mismatch
       DCHECK_LE(prefix, avail);
+FOLLY_POP_WARNING
       firstEsc += prefix;
       if (prefix < 8) {
         break;
