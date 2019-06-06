@@ -60,7 +60,7 @@ def isV8Enabled() {
 }
 
 task prepareHermes() {
-    def hermesAAR = new File("f:/HermesAAR/hermes-debug.aar")
+    def hermesAAR = new File("f:/HermesAAR/hermes-release.aar")
     def soFiles = zipTree(hermesAAR).matching({ it.include "**/*.so" })
     copy {
         from soFiles
@@ -254,6 +254,7 @@ task packageReactNdkLibs(dependsOn: buildReactNdkLib, type: Copy) {
         exclude '**/*.so'
     } else {
         exclude '**/libjsc.so'
+		exclude '**/libv8*.so'
     }
     into "$buildDir/react-ndk/exported"
 }
