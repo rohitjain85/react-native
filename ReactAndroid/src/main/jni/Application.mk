@@ -35,4 +35,4 @@ NDK_TOOLCHAIN_VERSION := clang
 
 APP_CPPFLAGS+=-std=c++1y
 
-HERMES_PATH := d:/Hermes/hermes
+APP_ALLOW_MISSING_DEPS := true
