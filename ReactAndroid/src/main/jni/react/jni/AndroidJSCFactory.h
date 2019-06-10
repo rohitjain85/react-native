@@ -9,9 +9,7 @@
 #include <cxxreact/JSExecutor.h>
 
 namespace folly {
-
-class dynamic;
-
+struct dynamic;
 }
 
 namespace facebook {

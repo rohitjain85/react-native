@@ -34,7 +34,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_C_INCLUDES)
 LOCAL_CFLAGS := \
   -DLOG_TAG=\"ReactNative\"
 
-LOCAL_CFLAGS += -fexceptions -frtti
+LOCAL_CFLAGS += -fexceptions -frtti -Wno-unused-lambda-capture
 
 LOCAL_STATIC_LIBRARIES := boost
 LOCAL_SHARED_LIBRARIES := libfb libfolly_json libglog 
@@ -44,11 +44,12 @@ LOCAL_V8_FILES := \
     V8NativeModules.cpp \
     V8Executor.cpp 
 
-LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
+ifeq ($(V8_ENABLED), 1)
+#LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
 LOCAL_CFLAGS += -DV8_ENABLED=1
-LOCAL_STATIC_LIBRARIES := v8helpers
-LOCAL_SHARED_LIBRARIES += libv8 libv8platform libv8base
-
+#LOCAL_STATIC_LIBRARIES := v8helpers
+#LOCAL_SHARED_LIBRARIES += libv8 libv8platform libv8base
+endif
 
 include $(BUILD_STATIC_LIBRARY)
 

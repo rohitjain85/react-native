@@ -23,6 +23,7 @@ public class ReactBridge {
   // There is a compile time flag to decide which one will be used and V8 is the default one.
   // We are exposing an API from ReactBridge so that consumer can choose JSC if required.
   private static boolean sUseJSC = false;
+  private static boolean sUseHermes = true;
 
   public static void staticInit() {
     if (sDidInit) {
@@ -37,6 +38,9 @@ public class ReactBridge {
       SoLoader.loadLibrary("icu_common");
       SoLoader.loadLibrary("jsc");
     }
+	else if (sUseHermes) {
+		SoLoader.loadLibrary("hermes");
+	}
     else {
       SoLoader.loadLibrary("v8_libbase.cr");
       SoLoader.loadLibrary("v8_libplatform.cr");
@@ -61,6 +65,10 @@ public class ReactBridge {
   }
 
   public static void useJSC() {
+    sUseJSC = true;
+  }
+
+  public static void useHermes() {
     sUseJSC = true;
   }
 }

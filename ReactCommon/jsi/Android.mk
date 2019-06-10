@@ -34,8 +34,8 @@ LOCAL_CFLAGS := -fexceptions -frtti -O3
 LOCAL_SHARED_LIBRARIES := libfolly_json glog
 
 ifeq ($(V8_ENABLED), 1)
-  LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
-  LOCAL_SHARED_LIBRARIES += libv8 libv8platform libv8base
+#  LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
+#  LOCAL_SHARED_LIBRARIES += libv8 libv8platform libv8base
 else
   LOCAL_SRC_FILES += $(LOCAL_JSC_FILES)
   LOCAL_SHARED_LIBRARIES += libjsc

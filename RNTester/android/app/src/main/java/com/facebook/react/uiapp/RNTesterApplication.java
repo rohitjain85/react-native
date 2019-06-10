@@ -21,6 +21,7 @@ import com.facebook.react.bridge.ReactMarker;
 import com.facebook.react.bridge.ReactMarkerConstants;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.react.v8executor.V8ExecutorFactory;
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 
 import java.io.File;
 import java.util.Arrays;
@@ -73,6 +74,7 @@ public class RNTesterApplication extends Application implements ReactApplication
       );
     }
 
+	/*
     @Override
     public JavaScriptExecutorFactory getJavaScriptExecutorFactory() {
       ReactMarker.addListener(new RNTesterReactMarker());
@@ -88,6 +90,11 @@ public class RNTesterApplication extends Application implements ReactApplication
       }
 
       return new V8ExecutorFactory(appName, deviceName, new V8ExecutorFactory.V8ConfigParams(jseCacheDirectoryPath, V8ExecutorFactory.V8ConfigParams.CacheType.CodeCache, false));
+    }*/
+    
+    @Override
+    protected JavaScriptExecutorFactory getJavaScriptExecutorFactory() {
+      return new HermesExecutorFactory();
     }
   };
 

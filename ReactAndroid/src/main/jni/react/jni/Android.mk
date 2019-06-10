@@ -17,7 +17,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)
 #   ./../ == react
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../..
 
-LOCAL_CFLAGS += -fvisibility=hidden -fexceptions -frtti
+LOCAL_CFLAGS += -fvisibility=hidden -fexceptions -frtti -Wno-unused-lambda-capture
 
 LOCAL_LDLIBS += -landroid
 
@@ -39,7 +39,6 @@ V8_ENABLED := 1
 LOCAL_SRC_FILES := \
   CatalystInstanceImpl.cpp \
   CxxModuleWrapper.cpp \
-  InstanceManager.cpp \
   JavaModuleWrapper.cpp \
   JReactMarker.cpp \
   JSLogging.cpp \
@@ -60,14 +59,15 @@ LOCAL_SRC_FILES := \
   WritableNativeMap.cpp \
 
 LOCAL_V8_FILES := \
-  AndroidV8Factory.cpp
+  InstanceManager.cpp \
+  AndroidV8Factory.cpp \
 
 LOCAL_JSC_FILES := \
   AndroidJSCFactory.cpp \
   JSCPerfLogging.cpp \
 
 ifeq ($(V8_ENABLED), 1)
-  LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
+#  LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
   LOCAL_CFLAGS += -DV8_ENABLED=1
 else
   LOCAL_SRC_FILES += $(LOCAL_JSC_FILES)
@@ -96,6 +96,7 @@ $(call import-module,privatedata)
 $(call import-module,fb)
 $(call import-module,fbgloginit)
 $(call import-module,folly)
+$(call import-module,hermes)
 ifeq ($(V8_ENABLED), 0)
   $(call import-module,jsc)
 endif
@@ -107,5 +108,6 @@ $(call import-module,jsiexecutor)
 #   Why doesn't this import-module call generate a jscexecutor.so file?
 # $(call import-module,jscexecutor)
 
-include $(REACT_SRC_DIR)/jscexecutor/Android.mk
-include $(REACT_SRC_DIR)/v8executor/Android.mk
+#include $(REACT_SRC_DIR)/jscexecutor/Android.mk
+#include $(REACT_SRC_DIR)/v8executor/Android.mk
+include $(REACT_SRC_DIR)/../hermes/reactexecutor/Android.mk
