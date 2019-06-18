@@ -75,6 +75,8 @@ else
   LOCAL_SHARED_LIBRARIES += libjsc
 endif
 
+LOCAL_CFLAGS +=-Wno-unused-lambda-capture
+
 # Build the files in this directory as a shared library
 include $(BUILD_SHARED_LIBRARY)
 
