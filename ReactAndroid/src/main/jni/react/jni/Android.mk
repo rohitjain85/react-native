@@ -66,6 +66,8 @@ LOCAL_JSC_FILES := \
   AndroidJSCFactory.cpp \
   JSCPerfLogging.cpp \
 
+LOCAL_CFLAGS +=-Wno-unused-lambda-capture
+
 ifeq ($(V8_ENABLED), 1)
   LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
   LOCAL_CFLAGS += -DV8_ENABLED=1
