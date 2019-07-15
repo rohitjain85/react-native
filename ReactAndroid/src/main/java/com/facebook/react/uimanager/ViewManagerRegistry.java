@@ -32,6 +32,7 @@ public final class ViewManagerRegistry {
     sComponentNames.put("TextInput", "AndroidTextInput");
     sComponentNames.put("TouchableHighlight", "RCTView");
     sComponentNames.put("WebView", "RCTWebView");
+    sComponentNames.put("AndroidHorizontalScrollView", "ReactHorizontalScrollViewManager");
   }
 
   public ViewManagerRegistry(UIManagerModule.ViewManagerResolver viewManagerResolver) {
