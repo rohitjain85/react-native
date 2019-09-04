@@ -26,7 +26,7 @@ LOCAL_LDLIBS += -landroid
 LOCAL_SHARED_LIBRARIES := libfolly_json libfb libglog_init libyoga libprivatedata
 
 # The static libraries (.a files) that this module depends on.
-LOCAL_STATIC_LIBRARIES := libreactnative
+LOCAL_STATIC_LIBRARIES := libreactnative jsi
 
 # Name of this module.
 #
@@ -34,13 +34,9 @@ LOCAL_STATIC_LIBRARIES := libreactnative
 # LOCAL_SHARED_LIBRARIES variable.
 LOCAL_MODULE := reactnativejni
 
-# Flag to enable V8 in react-native code
-V8_ENABLED := 1
-
 LOCAL_SRC_FILES := \
   CatalystInstanceImpl.cpp \
   CxxModuleWrapper.cpp \
-  InstanceManager.cpp \
   JavaModuleWrapper.cpp \
   JReactMarker.cpp \
   JSLogging.cpp \
@@ -61,19 +57,15 @@ LOCAL_SRC_FILES := \
   WritableNativeMap.cpp \
 
 LOCAL_V8_FILES := \
+  InstanceManager.cpp \
   AndroidV8Factory.cpp
-
-LOCAL_JSC_FILES := \
-  AndroidJSCFactory.cpp \
-  JSCPerfLogging.cpp \
-
-ifeq ($(V8_ENABLED), 1)
+  
+ifeq ($(JS_ENGINE), V8)
   LOCAL_SRC_FILES += $(LOCAL_V8_FILES)
-  LOCAL_CFLAGS += -DV8_ENABLED=1
-else
-  LOCAL_SRC_FILES += $(LOCAL_JSC_FILES)
-  LOCAL_CFLAGS += -DV8_ENABLED=0
+  LOCAL_STATIC_LIBRARIES += v8runtime
+else ifeq ($(JS_ENGINE), JSC)
   LOCAL_SHARED_LIBRARIES += libjsc
+  LOCAL_STATIC_LIBRARIES += jscruntime
 endif
 
 # Build the files in this directory as a shared library
@@ -97,7 +89,7 @@ $(call import-module,privatedata)
 $(call import-module,fb)
 $(call import-module,fbgloginit)
 $(call import-module,folly)
-ifeq ($(V8_ENABLED), 0)
+ifeq ($(JS_ENGINE), JSC)
   $(call import-module,jsc)
 endif
 $(call import-module,yogajni)
@@ -108,5 +100,8 @@ $(call import-module,jsiexecutor)
 #   Why doesn't this import-module call generate a jscexecutor.so file?
 # $(call import-module,jscexecutor)
 
-include $(REACT_SRC_DIR)/jscexecutor/Android.mk
-include $(REACT_SRC_DIR)/v8executor/Android.mk
+ifeq ($(JS_ENGINE), JSC)
+  include $(REACT_SRC_DIR)/jscexecutor/Android.mk
+else ifeq ($(JS_ENGINE), V8)
+  include $(REACT_SRC_DIR)/v8executor/Android.mk
+endif

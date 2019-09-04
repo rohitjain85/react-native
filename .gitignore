@@ -77,3 +77,16 @@ RNTester/build
 
 
 *.nupkg
+
+#vscode
+.vscode/*
+
+# Javadocs and copy of third party ndks created by build.
+ReactAndroid/bin/
+
+# Projects files created by build
+**/.project
+
+# binary files generated during ReactAndroid build.
+RNTester/android/app/bin/
+processor/bin/
